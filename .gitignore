@@ -1,0 +1,15 @@
+.local/
+bin/
+node_modules/
+.env
+.env.*
+!.env.example
+persona.md
+*.log
+*.lock
+*.runtime.toml
+credentials.json
+owner.json
+auth.json
+*.zip
+*.exe

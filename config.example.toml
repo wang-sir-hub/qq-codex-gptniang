@@ -1,0 +1,51 @@
+# Render with start.ps1; this template is not directly runnable.
+language = "zh"
+data_dir = "__STATE_DIR__"
+attachment_send = "off"
+[log]
+level = "warn"
+[display]
+mode = "quiet"
+thinking_messages = false
+tool_messages = false
+show_context_indicator = false
+reply_footer = false
+hide_agent_footer = true
+[rate_limit]
+max_messages = 6
+window_secs = 60
+[[projects]]
+name = "qq-gptniang"
+reset_on_idle_mins = 30
+max_turn_time_mins = 1
+filter_external_sessions = true
+disabled_commands = ["shell", "dir", "mode", "model", "provider", "memory", "skill", "skills", "commands", "cron", "heartbeat", "relay", "send", "restart", "upgrade", "list", "switch", "history", "delete", "config"]
+# No admin_from: privileged commands remain blocked.
+[projects.users]
+default_role = "chat"
+[projects.users.roles.chat]
+user_ids = ["*"]
+disabled_commands = ["*"]
+rate_limit = { max_messages = 6, window_secs = 60 }
+[projects.agent]
+type = "codex"
+[projects.agent.options]
+model = "gpt-6-luna"
+reasoning_effort = "low"
+mode = "suggest"
+work_dir = "__WORKSPACE__"
+cmd = __CODEX_COMMAND__
+system_prompt = '''
+__PERSONA__
+'''
+[projects.agent.options.env]
+QQ_BOT_APP_SECRET = ""
+QQ_BOT_OWNER_OPENID = ""
+[[projects.platforms]]
+type = "qqbot"
+[projects.platforms.options]
+app_id = "${QQ_BOT_APP_ID}"
+app_secret = "${QQ_BOT_APP_SECRET}"
+sandbox = false
+allow_from = "${QQ_BOT_OWNER_OPENID}"
+share_session_in_channel = false
